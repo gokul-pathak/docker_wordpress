@@ -2,34 +2,37 @@ version: '3'
 
 services:
   nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+    networks:
+      - my_network
+
+  wordpress:
+    image: wordpress:latest
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
     ports:
       - "8080:80"
     depends_on:
-      - wordpress
-
-  wordpress:
-    build:
-      context: .
-      dockerfile: Dockerfile.wordpress
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: examplepassword
-      WORDPRESS_DB_NAME: wordpress
-    volumes:
-      - wordpress-data:/var/www/html
+      - db
+    networks:
+      - my_network
 
   db:
-    image: mysql:5.7
+    image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: examplepassword
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wordpress
-    volumes:
-      - db-data:/var/lib/mysql
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - my_network
 
-volumes:
-  wordpress-data:
-  db-data:
+networks:
+  my_network:

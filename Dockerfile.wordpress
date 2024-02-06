@@ -1,0 +1,4 @@
+# Use the official WordPress image
+FROM wordpress:latest
+
+# additional configurations or plugins needed

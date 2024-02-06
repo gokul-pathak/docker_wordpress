@@ -18,8 +18,8 @@ This repository provides a Docker Compose configuration and Nginx settings to es
 
 3. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   git clone https://github.com/gokul-pathak/docker_wordpress
+   cd docker_wordpress
 # Dockerized Nginx and WordPress Setup
 
 ## `docker-compose.yml`
